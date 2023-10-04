@@ -584,7 +584,7 @@ private:
                 all_valid = false;
             }
             if (all_valid) {
-              auto orig_hfh = intermediateHexMesh.find_halfface_in_cell(orig_vertices, CellHandle(orig_ch_idx));
+              auto orig_hfh = find_halfface_in_cell(intermediateHexMesh, orig_vertices, CellHandle(orig_ch_idx));
               if (orig_hfh.is_valid())
                 ffeature[fh] = intermediate_ffeature[intermediateHexMesh.face_handle(orig_hfh)];
             }
@@ -592,6 +592,29 @@ private:
         }
       }
     }
+
+  template <typename PolyMeshT>
+  HalfFaceHandle find_halfface_in_cell(const PolyMeshT& _mesh, const std::vector<VertexHandle>& _vs, CellHandle _ch) const
+  {
+    assert(_vs.size() > 2);
+
+    VertexHandle v0 = _vs[0], v1 = _vs[1], v2 = _vs[2];
+
+    assert(v0.is_valid() && v1.is_valid() && v2.is_valid());
+
+    // check all halfedges of cell until (v0 -> v1) is found and then verify (v0 -> v1 -> v2)
+    for( auto hfh : _mesh.cell(_ch).halffaces())
+    {
+      for(auto heh : _mesh.halfface(hfh).halfedges() )
+      {
+        if(_mesh.halfedge(heh).from_vertex() == v0 && _mesh.halfedge(heh).to_vertex() == v1)
+          if(_mesh.halfedge(_mesh.next_halfedge_in_halfface(heh,hfh)).to_vertex() == v2)
+            return hfh;
+      }
+    }
+
+    return HalfFaceHandle (-1);
+  }
 
     template <typename PolyMeshT>
     void addCellsToHexMeshWithLargeCells(PolyMeshT& polyMesh)
