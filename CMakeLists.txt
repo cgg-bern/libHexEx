@@ -132,13 +132,17 @@ set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/HexEx/predicates.c
 # forcing the generation of SSE code ensures that the
 # exact predicates produce correct results.
 #
-
-if ("${CMAKE_CXX_COMPILER_ID}" MATCHES ".*Clang")
-    if (NOT ("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "arm64") )
-       target_compile_options(HexEx PUBLIC -msse -mfpmath=sse)
+if ("${CMAKE_CXX_COMPILER_ID}" MATCHES ".*Clang|GNU")
+    if (("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "amd64|.*86") )
+       target_compile_options(HexHex PUBLIC -msse -mfpmath=sse)
+    elseif (("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "arm64") )
+    else()
+    message (WARNING
+        "You are compiling for a ${CMAKE_SYSTEM_PROCESSOR} system."
+        "If this is *not* x86, everything is fine."
+        "If it is x86 based, CMakeLists.txt must be updated "
+        "to specify the correct compiler flags.")
     endif()
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    target_compile_options(HexEx PUBLIC -msse -mfpmath=sse)
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     # On 64-bit platforms, MSVC is supposed to only generate x87 code for
     #   'long double' types, not for doubles.
@@ -149,8 +153,7 @@ else ()
         "You are using an unknown compiler which might generate x87 FPU code "
         "that breaks the exact predicates. If you know how to detect this compiler "
         "and which flags "
-        "ensure that this compiler produces SSE code, please patch "
-        "the CMakeLists.txt and inform the author <lyon@cs.rwth-aachen.de>.")
+        "ensure that this compiler produces SSE code, please submit a pull request :)")
 endif ()
 
 set(STL_RANGE_CHECKS false CACHE BOOL "Include STL range checks in debug mode (This option is only used in debug mode.)")
