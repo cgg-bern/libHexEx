@@ -48,11 +48,11 @@ WARNING='\033[0;93m'
 
 #clone OpenVolumeMesh
 if [ ! -d OpenVolueMesh ]; then
-  git clone https://graphics.rwth-aachen.de:9000/OpenVolumeMesh/OpenVolumeMesh --branch cmake-overhaul-3
+  git clone https://graphics.rwth-aachen.de:9000/OpenVolumeMesh/OpenVolumeMesh --branch master
 else
   cd OpenVolumeMesh
   git fetch
-  git reset --hard origin/cmake-overhaul-3
+  git reset --hard origin/master
   cd ..
 fi
 
