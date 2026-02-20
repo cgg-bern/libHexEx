@@ -134,7 +134,7 @@ set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/HexEx/predicates.c
 #
 if ("${CMAKE_CXX_COMPILER_ID}" MATCHES ".*Clang|GNU")
     if (("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "amd64|.*86") )
-       target_compile_options(HexHex PUBLIC -msse -mfpmath=sse)
+       target_compile_options(HexEx PUBLIC -msse -mfpmath=sse)
     elseif (("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "arm64") )
     else()
     message (WARNING
