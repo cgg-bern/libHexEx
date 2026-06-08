@@ -5,7 +5,6 @@
 #if OPENVOLUMEMESH_VERSION_MAJOR > 3 || (OPENVOLUMEMESH_VERSION_MAJOR == 3 && OPENVOLUMEMESH_VERSION_MINOR > 4)
 #  include <OpenVolumeMesh/Core/Properties/Defaults/map.hh>
 #endif
-
 #include <HexEx.hh>
 
 int main()

@@ -32,7 +32,9 @@ namespace HexEx
 void extractHexMesh(const std::string& inFileName, const std::string& outFileName);
 
 template <typename TetMeshT, typename HexMeshT, typename ParameterT>
-void extractHexMesh(const TetMeshT& tetMesh, OpenVolumeMesh::CellPropertyT<std::map<OpenVolumeMesh::VertexHandle, ParameterT> >& parameters, HexMeshT& hexMesh)
+void extractHexMesh(
+        /*const*/ // HACK: this *should* be const, but that would need some refactoring.
+        TetMeshT& tetMesh, OpenVolumeMesh::CellPropertyT<std::map<OpenVolumeMesh::VertexHandle, ParameterT> >& parameters, HexMeshT& hexMesh)
 {
     HexEx::HexExtractor he(tetMesh, parameters);
     he.extract();
