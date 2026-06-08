@@ -10,3 +10,4 @@
 *.gcda
 *.gcno
 /OpenVolumeMesh/
+.cache/
