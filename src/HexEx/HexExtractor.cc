@@ -29,6 +29,8 @@
 #include <queue>
 #include <algorithm>
 
+#include <OpenVolumeMesh/Core/Properties/Defaults/map.hh>
+
 #include "Utils.hh"
 #include "ExactPredicates.hh"
 
@@ -52,7 +54,7 @@ HexExtractor::HexExtractor()
       edgeSingularitiesCalculated(false),
       edgeValences(inputMesh.request_edge_property<int>()),
       edgeSingularity(inputMesh.request_edge_property<bool>()),
-      transitionFunctions(inputMesh.request_halfface_property<Transition>()),
+      transitionFunctions(inputMesh.request_halfface_property<Transition>("", Transition{})),
       vertexTypes(intermediateHexMesh.request_vertex_property<HVertexType>()),
       hPortsOnVertex(intermediateHexMesh.request_vertex_property<std::vector<HPortHandle>>()),
       incidentCellInInputMesh(intermediateHexMesh.request_vertex_property<CellHandle>()),
@@ -70,7 +72,7 @@ HexExtractor::HexExtractor()
       localCellUVs(intermediateHexMesh.request_cell_property<VertexMapProp<Parameter>>()),
       equivalenceClassIds(intermediateHexMesh.request_vertex_property<int>()),
       equivalenceClasses(),
-      incidentHPort(intermediateHexMesh.request_halfedge_property<HPortHandle>()),
+      incidentHPort(intermediateHexMesh.request_halfedge_property<HPortHandle>("", HPortHandle{})),
       halffaceDarts(intermediateHexMesh.request_halfface_property<std::vector<Dart*>>()),
       halffaceSecondaryDarts(intermediateHexMesh.request_halfface_property<std::vector<Dart*>>()),
       transitionFunctionsComputed(false),

@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include <OpenVolumeMesh/Core/Properties/Defaults/map.hh>
 #include <HexEx.hh>
 
 int main()

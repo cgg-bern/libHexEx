@@ -31,6 +31,7 @@ project (HexEx
 if( ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR} )
     set(HEXEX_STANDALONE_BUILD TRUE)
     message("Configuring HexEx as standalone project...")
+    set(CMAKE_CXX_STANDARD 17)
 else()
     set(HEXEX_STANDALONE_BUILD FALSE)
     message("Configuring HexEx inside another cmake project...")
