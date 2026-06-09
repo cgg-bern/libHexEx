@@ -46,16 +46,20 @@ endif()
 #list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 
-if(NOT TARGET OpenVolumeMesh::OpenVolumeMesh AND EXISTS "${CMAKE_CURRENT_LIST_DIR}/OpenVolumeMesh")
-  add_subdirectory(OpenVolumeMesh)
-  message("Building with local OpenVolumeMesh")
+include(FetchContent)
+
+if (TARGET OpenVolumeMesh::OpenVolumeMesh)
+    message(STATUS "HexEx: building with supplied OpenVolumeMesh::OpenVolumeMesh target.")
 else()
-  message("Not building with local OpenVolumeMesh")
+    message(STATUS "HexEx: no OpenVolumeMesh::OpenVolumeMesh target supplied, downloading OVM....")
+    FetchContent_Declare(ovm
+        GIT_REPOSITORY https://www.graphics.rwth-aachen.de:9000/OpenVolumeMesh/OpenVolumeMesh
+        GIT_TAG v3.4.1
+        )
+    FetchContent_MakeAvailable(ovm)
+    message(STATUS "HexEx: Downloaded OpenVolumeMesh to ${ovm_SOURCE_DIR}")
 endif()
 
-if (NOT TARGET OpenVolumeMesh::OpenVolumeMesh)
- find_package (OpenVolumeMesh REQUIRED)
-endif()
 
 
 set(SOURCE_FILES
