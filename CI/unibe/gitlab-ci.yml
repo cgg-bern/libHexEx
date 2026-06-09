@@ -1,0 +1,23 @@
+variables:
+  GIT_SUBMODULE_FORCE_HTTPS: "true" # rewrite git:// submodule urls to https
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_SUBMODULE_UPDATE_FLAGS: --jobs 16
+  GIT_STRATEGY: clone # fetch is more efficient
+
+
+include:
+  - component: $CI_SERVER_FQDN/CGG-public/ci-components/debian-linux/debian@v0.0.12
+    inputs:
+      job_name: "debian-trixie"
+      debian_release: trixie
+      stage: build
+
+  - component: $CI_SERVER_FQDN/CGG-public/ci-components/macos/sonoma@v0.0.4
+    inputs:
+      job_name: "macos-sonoma"
+      stage: build
+
+  - component: $CI_SERVER_FQDN/CGG-public/ci-components/windows/vs22-cmake@v0.1.1
+    inputs:
+      stage: build
+      job_name: "win-vs22"
