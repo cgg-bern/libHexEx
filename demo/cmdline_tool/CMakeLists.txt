@@ -19,7 +19,7 @@
 # along with HexEx.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.10)
 
 if(NOT TARGET OpenVolumeMesh::OpenVolumeMesh)
     find_package (OpenVolumeMesh REQUIRED)

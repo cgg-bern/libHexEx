@@ -177,11 +177,12 @@ public:
                 parameters[ch][*cv_it] = PointT(pm[0], pm[1], pm[2]);
             }
     }
-
+#if 0 // this breaks tests on windows
 #ifdef HEXEX_TESTING
 public:
 #else
 private:
+#endif
 #endif
     
     template <typename MeshT>
@@ -404,8 +405,10 @@ public:
     TetrahedralMesh& getInputMesh() { return inputMesh; }
     PolyhedralMesh& getIntermediateHexMesh()    { return intermediateHexMesh;   }
 
+#if 0
 #ifndef HEXEX_TESTING
 private:
+#endif
 #endif
     void checkThisOneProperty();
 
