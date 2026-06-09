@@ -237,10 +237,9 @@ if(HEXEX_STANDALONE_BUILD)
 endif()
 
 
-set(HEXEX_BUILD_UNIT_TESTS false CACHE BOOL "Whether to build the unit tests.")
+set(HEXEX_BUILD_UNIT_TESTS ${HEXEX_STANDALONE_BUILD} CACHE BOOL "Whether to build the unit tests.")
 if (HEXEX_BUILD_UNIT_TESTS)
     enable_testing()
-    find_package(GTest REQUIRED)
     add_subdirectory(tests)
 endif()
 
